@@ -6,9 +6,9 @@ library(raster)     # richiama il pacchetto raster
 setwd("C:/lab/")  
 
 p224r63_2011 <- brick("p224r63_2011_masked.grd")  # importa i dati raster dentro R
-p224r63_2011     #informazioni sull'immagine: dimensione, risoluzione, valori di riflettanza nelle varie bande...
+p224r63_2011     #informazioni sull'immagine: dimensione, risoluzione, sistema di riferimento, valori di riflettanza nelle varie bande...
 
-plot(p224r63_2011)  #visualizza i dati, quindi le 7 bande. B1 blu, B2 verde, B3 rosso, B4 NIR, B5 MIR, B6 TIR, B7 MIR
+plot(p224r63_2011)  #visualizza i dati, quindi le 7 bande. B1 blu, B2 verde, B3 rosso, B4 NIR, B5 infrarosso medio, B6 infrarosso termico, B7 infrarosso medio
 
 cl<-colorRampPalette(c('black','grey','light grey'))(100)    #stabilisce la variazione del colore. c crea un array dei colori. 100 intervalli di colore
 
