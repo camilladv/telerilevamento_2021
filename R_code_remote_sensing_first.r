@@ -26,38 +26,50 @@ p224r63_2011     #informazioni sull'immagine
 #B6: infrarosso termico
 #B7: infrarosso medio
 
+#plottare l'immagine
 plot(p224r63_2011)  #visualizza i dati, quindi le 7 bande. B1 blu, B2 verde, B3 rosso, B4 NIR, B5 infrarosso medio, B6 infrarosso termico, B7 infrarosso medio
 
+#creare una palette di colori
 cl<-colorRampPalette(c('black','grey','light grey'))(100)    #stabilisce la variazione del colore. c crea un array dei colori. 100 intervalli di colore
 
 plot(p224r63_2011,col=cl)    #immagine che vogliamo plottare con i colori di cl
 
-cl<-colorRampPalette(c('yellow','blue','green','purple'))(100)  
+cl<-colorRampPalette(c('yellow','blue','green','purple'))(100)  #altri colori nella palette
 plot(p224r63_2011,col=cl)
 cl1<-colorRampPalette(c('yellow','purple','green','blue'))(100) 
 plot(p224r63_2011,col=cl1)
 dev.off() #pulisce la finestra grafica
 
+#plottare una sola banda
 plot(p224r63_2011$B1_sre) #plotta solamente la prima banda B1 del blu
 cl1<-colorRampPalette(c('yellow','purple','green','blue'))(100)
-plot(p224r63_2011$B1_sre, col=cl1) #plotta la banda B1 con la palette di colori scelta
+plot(p224r63_2011$B1_sre, col=cl1) #plotta la banda B1 con la palette di colori scelta (cl1)
 dev.off()
 
-par(mfrow=c(1,2)) ##multiframe, plotta più grafici uno di fianco all'altro. Il primo parametro indica le righe, il secondo le colonne, la c è per creare il vettore
+#plottare più grafici contemporaneamente
+par(mfrow=c(1,2)) #multiframe. Il primo parametro indica le righe, il secondo le colonne, la c è per creare il vettore
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 
-par(mfrow=c(2,1)) #2 righe, 1 colonna
+par(mfrow=c(2,1)) #2 righe, 1 colonna. Se si volesse avere prima il numero di colonne il comando è par(mfcol=...)
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 
+#plottare le prime 4 bande
 par(mfrow=c(2,2)) #2 righe, 2 colonne
-cl1<-colorRampPalette(c('yellow','purple','green','blue'))(100)
-plot(p224r63_2011$B1_sre, col=cl1)
-cl<-colorRampPalette(c('yellow','blue','green','purple'))(100) 
-plot(p224r63_2011$B2_sre, col=cl)
-clr <- colorRampPalette(c('green','red','pink','blue'))(100)
+plot(p224r63_2011$B1_sre)
+plot(p224r63_2011$B2_sre)
+plot(p224r63_2011$B3_sre)
+plot(p224r63_2011$B4_sre)
+
+#plottare le prime 4 bande, assegnandogli dei nuovi colori
+par(mfrow=c(2,2)) #2 righe, 2 colonne
+clb<-colorRampPalette(c('dark blue','blue','light blue'))(100) #colori che richiamano la banda del blu
+plot(p224r63_2011$B1_sre, col=clb)
+clg<-colorRampPalette(c('dark green','green','light green'))(100) #colori che richiamano la banda del verde
+plot(p224r63_2011$B2_sre, col=clg)
+clr <- colorRampPalette(c('dark red','red','pink'))(100) #colori che richiamano la banda del rosso
 plot(p224r63_2011$B3_sre, col=clr)
-cln <- colorRampPalette(c('grey','red','orange','yellow'))(100)
+cln <- colorRampPalette(c('red','orange','yellow'))(100) #colori che richiamano la banda dell'infrarosso vicino
 plot(p224r63_2011$B4_sre, col=cln)
 
