@@ -73,3 +73,36 @@ plot(p224r63_2011$B3_sre, col=clr)
 cln <- colorRampPalette(c('red','orange','yellow'))(100) #colori che richiamano la banda dell'infrarosso vicino
 plot(p224r63_2011$B4_sre, col=cln)
 
+#visualizzazione dell'immagine con RGB, considerando il numero dei layer e utilizzando uno stretch lineare
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch='Lin') #stretch prende i valori delle singole bande e li dirada per fare in modo che non ci sia uno schiacciamento del colore
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='Lin') #la componente red visualizza le riflettanze nell'infrarosso (layer 4). Zone più scure indicano una maggiore umidità
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='Lin') #montando la banda 4 sul green il suolo nudo, senza vegetazione, viene indicato dal colore viola
+plotRGB(p224r63_2011,r=3,g=2,b=4,stretch='Lin') #infrarosso nel blue. Il suolo nudo è giallo
+
+#multiframe 2X2 con le 4 bande
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch='Lin') 
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='Lin')
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='Lin') 
+plotRGB(p224r63_2011,r=3,g=2,b=4,stretch='Lin')
+
+#salvare l'immagine in pdf. Non visualizza le immagini in R, le salva solo
+pdf('immagini_RGB.pdf')
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch='Lin') 
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='Lin')
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='Lin') 
+plotRGB(p224r63_2011,r=3,g=2,b=4,stretch='Lin')
+dev.off()
+
+#RGB con stretch non lineare, ma 'hist', una funzione ad s che ha una pendenza maggiore centralmente
+par(mfrow=c(1,2))
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='lin')
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='hist') #evidenzia maggiormente le zone più umide, colorandole di viola
+
+#RGB con colori naturali, colori falsi, colori falsi con istogramma stretch
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch='lin') #colori naturali, strecth lineare
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='lin') #colori falsi, strecth lineare
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='hist') #colori falsi, stretch istogrammi
+
