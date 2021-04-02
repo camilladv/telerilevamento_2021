@@ -5,7 +5,7 @@ library(raster)     #richiama il pacchetto raster
 
 setwd("C:/lab/")  
 
-p224r63_2011 <- brick("p224r63_2011_masked.grd")  #importa i dati raster dentro R
+p224r63_2011<-brick("p224r63_2011_masked.grd")  #importa i dati raster dentro R
 p224r63_2011     #informazioni sull'immagine
 #class      : RasterBrick 
 #dimensions : 1499, 2967, 4447533, 7  (nrow, ncol, ncell, nlayers)
@@ -73,11 +73,11 @@ plot(p224r63_2011$B3_sre, col=clr)
 cln <- colorRampPalette(c('red','orange','yellow'))(100) #colori che richiamano la banda dell'infrarosso vicino
 plot(p224r63_2011$B4_sre, col=cln)
 
-#visualizzazione dell'immagine con RGB, considerando il numero dei layer e utilizzando uno stretch lineare
-plotRGB(p224r63_2011,r=3,g=2,b=1,stretch='Lin') #stretch prende i valori delle singole bande e li dirada per fare in modo che non ci sia uno schiacciamento del colore
-plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='Lin') #la componente red visualizza le riflettanze nell'infrarosso (layer 4). Zone più scure indicano una maggiore umidità
+#visualizzazione dell'immagine con RGB, considerando il numero dei layer e utilizzando uno stretch lineare per riportare i valori di riflettanza tra 0 e 1 e visualizzare meglio i colori
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch='Lin') #visualizza l'immagine con i colori che l'occhio umano vede. stretch prende i valori delle singole bande e li dirada per fare in modo che non ci sia uno schiacciamento del colore
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='Lin') #la componente red visualizza le riflettanze nell'infrarosso (layer 4). La vegetazione è in rosso. Zone più scure indicano una maggiore umidità
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='Lin') #montando la banda 4 sul green il suolo nudo, senza vegetazione, viene indicato dal colore viola
-plotRGB(p224r63_2011,r=3,g=2,b=4,stretch='Lin') #infrarosso nel blue. Il suolo nudo è giallo
+plotRGB(p224r63_2011,r=3,g=2,b=4,stretch='Lin') #infrarosso nel blu. Il suolo nudo è giallo
 
 #multiframe 2X2 con le 4 bande
 par(mfrow=c(2,2))
@@ -106,3 +106,25 @@ plotRGB(p224r63_2011,r=3,g=2,b=1,stretch='lin') #colori naturali, strecth linear
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='lin') #colori falsi, strecth lineare
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch='hist') #colori falsi, stretch istogrammi
 
+#multitemporal set
+p224r63_1988<-brick("p224r63_1988_masked.grd") #importa un nuovo file
+p224r63_1988 #riporta le informazioni relative all'immagine
+plot(p224r63_1988) #visualizzazione delle singole bande. Essendo sempre un'immagine Landsat le 7 bande sono le stesse dell'immagine p224r63_2011
+plotRGB(p224r63_1988,r=3,g=2,b=1,stretch='lin') #il violetto sulla parte destra delle immagini sono delle interferenze
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch='lin') #visualizza l'infrarosso vicino nel rosso. Perciò viene evidenziata la vegetazione
+
+#confronto tra la vegetazione del 1988 e quella del 2011
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch='lin')
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='lin') #si vede nettamente il confine tra foresta e zone coltivate
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch='hist') #disturbata dalla qualità dell'immagine
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='hist')
+
+#creare il pdf di confronto
+pdf('immagini_RGB_88-2011_lh.pdf')
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch='lin')
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='lin')
+plotRGB(p224r63_1988,r=4,g=3,b=2,stretch='hist')
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch='hist')
+dev.off()
