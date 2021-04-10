@@ -7,11 +7,20 @@ library(rasterVis)
 library(raster)
 setwd('C:/lab/greenland')
 
-#importiano una time series su R
-lst_2000 <- raster("lst_2000.tif")     #lst=land surface temperature, è la temperatura misurata al suolo da un satellite di Copernicus
-lst_2005 <- raster("lst_2005.tif")
-lst_2010 <- raster("lst_2010.tif")
-lst_2015 <- raster("lst_2015.tif")
+#ogni immagine nella cartella greenland è uno strato che rappresenta la stima della temperatura (lst=land surface temperature)
+#le immagini che abbiamo riportano una media dell'lst dei primi 10 giorni di luglio 2000, nel 2005, nel 2010 e nel 2015.
+#importiano i singoli dataset con la funzione raster
+lst_2000<-raster("lst_2000.tif")     #lst=land surface temperature, è la temperatura misurata al suolo da un satellite di Copernicus
+plot(lst_2000)  #colori dal bianco al verde. La riflettanza viene data in bit (0/1)
+lst_2000  #i numeri interni a "valore" indicano i valori interi di temperatura
+lst_2005<-raster("lst_2005.tif")
+plot(lst_2005)
+lst_2010<-raster("lst_2010.tif")
+plot(lst_2010)
+lst_2015<-raster("lst_2015.tif")
+plot(lst_2015)
+
+
 
 # par
 par(mfrow=c(2,2))
@@ -28,6 +37,7 @@ rlist
 import <- lapply(rlist,raster)  #applica la funzioni a tutti i file nella lista
 import
 
+#creazione di uno stack, un insieme di dati raster (dati formati da pixel, in questo caso datimultitemporale)
 TGr <- stack(import)  #prende tutti i file e li unisce in un unico blocco
 TGr #informazioni dello stack
 plot(TGr)
