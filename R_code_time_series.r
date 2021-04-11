@@ -68,23 +68,21 @@ levelplot(TGr,col.regions=cl,names.attr=c("July 2000","July 2005","July 2010","J
 #aggiungere il titolo del plot con la funzione main
 levelplot(TGr,col.regions=cl,main='LST variation in time',names.attr=c("July 2000","July 2005","July 2010","July 2015"))
 
-#Usiamo i dai che riguardano lo scioglimento (melt)
-meltlist<-list.files(pattern='melt')  #unisce tutti i file con la parola melt
-meltlist
-melt_import<-lapply(meltlist,raster) #importazione dei file
+#Usiamo i dai che riguardano lo scioglimento (melt). Immagini raccolte dal satellite Nimbus 7. Le immagini sonon a 16 bit, quindi hanno 65536 valori possibili
+melt_list<-list.files(pattern='melt')  #unisce tutti i file con la parola melt in un'unica lista
+melt_list
+melt_import<-lapply(melt_list,raster) #importazione della lista
 melt<-stack(melt_import)  #stack di tutti i file che ho importato
-melt
-levelplot(melt) #mostra lo scioglimento effettivo del ghiaccio. Tra il 1979 e il 2007 la striscia di ghiaccio perso è molto più grande
+melt  #informazioni del rasterstack con i nomi dei layer
+levelplot(melt) #mostra i valori dello scioglimento dei ghiacci. più alto è il valore maggiore è lo scioglimento.
+                #Si nota che tra il 1979 e il 2007 la striscia di ghiaccio che è stato perso nello 07 è molto più grande di quella del 79
 
-#differenza tra un'immagine e l'altra (più recente - meno recente). Più alto è il valore più scioglimento c'è stato
-melt_amount<-melt$X2007annual_melt-melt$X1979annual_melt
+#metric algebra: differenza tra un'immagine e l'altra (più recente - meno recente). Più alto è il valore ottenuto più scioglimento c'è stato
+melt_amount<-melt$X2007annual_melt-melt$X1979annual_melt  #i nomi dei dati li trovo nelle informazioni di melt. Dobbiamo legare ogni raster interno al proprio file con il $
 melt_amount
-cl_a<-colorRampPalette(c("blue","white","red"))(100)
-plot(melt_amount,col=cl_a)
-levelplot(melt_amount,col.regions=cl_a)
-
-install.packages('knitr')
-library(knitr)
+cla<-colorRampPalette(c("blue","white","red"))(100)  #valori bassi in blue, medi in white e alti in red
+plot(melt_amount,col=cla) #tutte le zone rosse sono quelle dove dal 2007 al 1979 è avvenuto il maggior tasso di scioglimento
+levelplot(melt_amount,col.regions=cla)  #il colore esterno in realtà è un NA, quindi assenza di valore
 
 
 
