@@ -2,9 +2,10 @@
 #Greenland increase of temperature
 #Data and code from Emanuela Cosma
 
-install.packages('rasterVis')
-library(rasterVis)
+#install.packages('raster')
+#install.packages('rasterVis')
 library(raster)
+library(rasterVis)
 setwd('C:/lab/greenland')
 
 #ogni immagine nella cartella greenland è uno strato che rappresenta la stima della temperatura (lst=land surface temperature)
@@ -32,13 +33,13 @@ plot(lst_2015)
 lst_list <- list.files(pattern="lst")  #pattern definisce i file che vogliamo inserire nella lista attraverso il loro nome
 lst_list #lista di tutti i file dentro la cartella greenland con, nel loro nome, la parola lst
 
-#importare lst_list in R attraverso la funzione lapply. Inoltre applica una certa funzione (in questo caso raster) ad una lista di file (lstlist)
+#importare lst_list in R attraverso la funzione lapply. Inoltre applica una certa funzione (in questo caso raster) ad una lista di file (lstlist). Raster importa singoli file
 lst_import <- lapply(lst_list,raster) #il primo argomento di lapply indica la lista a cui vogliamo applicare la funzione raster che è definita nel secondo argomento 
 lst_import  #visualizza le informazioni relative ai 4 file all'interno di list
 
 #raggruppare il pacchetto di file raster separati con la funzione stack
 TGr <- stack(lst_import)  #prende tutti i file che ho importanto con lapply e li unisce in un unico blocco
-TGr #informazioni dello stack
+TGr #informazioni del raster stack
 plot(TGr) #plotta le 4 immagini senza dover fare un par
 
 plotRGB(TGr,1,2,3,stretch='lin')  #file con valori dei vari anni, quindi sovrapposizione delle 3 immagini (2000,2005,2010) con colori dettati dalle immagini.
@@ -48,19 +49,26 @@ plotRGB(TGr,1,2,3,stretch='lin')  #file con valori dei vari anni, quindi sovrapp
 #il centro della Groenlandia è blu perciò si piò pensare che la temperatura sia più alta nel 2010, perchè è il livello più alto
 plotRGB(TGr,2,3,4,stretch='lin')  #nell'anno più recente (2015) ho valori più alti
 
-levelplot(TGr$lst_2000) #come varia la temperatura nella zona. Il grafico grigio sopra l'immagine indica la temperatura del ghiaccio
+#levelplot: si utilizza una singola legenda e si plottano tutti gli strati insieme
+levelplot(TGr)
+levelplot(TGr$lst_2000) #levelplot di un unico strato. Viene visualizzato come varia la temperatura nella zona.
+                        #ll grafico grigio sopra l'immagine indica la temperatura, come media della stessa colonnna o riga della griglia di bit.
+                        #valori bassi di temperatura, indicati da numeri interi di bit, sono rappresentati dal colore blu (sulla Gronelandia)
 levelplot(TGr$lst_2005)
 levelplot(TGr$lst_2010)
 levelplot(TGr$lst_2015)
 
-levelplot(TGr)
-cl <- colorRampPalette(c("blue","light blue","pink","red"))(100)
-levelplot(TGr, col.regions=cl)  #il blu scuro indica la temperatura più bassa. Si osserva un trend di cambiamento di temperatura
+#cambiare i colori della mappa
+cl<-colorRampPalette(c("blue","light blue","pink","red"))(100)  #cambiamo i colori della mappa
+levelplot(TGr,col.regions=cl)  #il blu scuro indica la temperatura più bassa. Si osserva un trend di cambiamento di temperatura, infatti il colore diventa più azzurro
 
-levelplot(TGr,col.regions=cl, names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))  #aggiunge informazioni ai grafici
-levelplot(TGr,col.regions=cl, main='LST variation in time', names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
+#i singoli strati di uno stack si chiamano attributi. In questo caso sono 4
+#aggiungere i nomi degli attributi con la funzione names.attr=c()
+levelplot(TGr,col.regions=cl,names.attr=c("July 2000","July 2005","July 2010","July 2015"))  #aggiunge informazioni ai grafici
+#aggiungere il titolo del plot con la funzione main
+levelplot(TGr,col.regions=cl,main='LST variation in time',names.attr=c("July 2000","July 2005","July 2010","July 2015"))
 
-#Melt
+#Usiamo i dai che riguardano lo scioglimento (melt)
 meltlist<-list.files(pattern='melt')  #unisce tutti i file con la parola melt
 meltlist
 melt_import<-lapply(meltlist,raster) #importazione dei file
