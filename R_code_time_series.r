@@ -9,6 +9,7 @@ setwd('C:/lab/greenland')
 
 #ogni immagine nella cartella greenland è uno strato che rappresenta la stima della temperatura (lst=land surface temperature)
 #le immagini che abbiamo riportano una media dell'lst dei primi 10 giorni di luglio 2000, nel 2005, nel 2010 e nel 2015.
+
 #importiano i singoli dataset con la funzione raster
 lst_2000<-raster("lst_2000.tif")     #lst=land surface temperature, è la temperatura misurata al suolo da un satellite di Copernicus
 plot(lst_2000)  #colori dal bianco al verde. La riflettanza viene data in bit (0/1)
@@ -20,27 +21,32 @@ plot(lst_2010)
 lst_2015<-raster("lst_2015.tif")
 plot(lst_2015)
 
-
-
-# par
+#multipannel
 par(mfrow=c(2,2))
 plot(lst_2000)
 plot(lst_2005)
 plot(lst_2010)
 plot(lst_2015)
 
-# list f files:
-rlist <- list.files(pattern="lst")  #fa la lista di tutti i file che hanno al loro interno list
-rlist
+#creare una lista di file per applicare successivamente la funzione lapply
+lst_list <- list.files(pattern="lst")  #pattern definisce i file che vogliamo inserire nella lista attraverso il loro nome
+lst_list #lista di tutti i file dentro la cartella greenland con, nel loro nome, la parola lst
 
-#dare le informazini di tutte le 4 immagini in un unico comando
-import <- lapply(rlist,raster)  #applica la funzioni a tutti i file nella lista
-import
+#importare lst_list in R attraverso la funzione lapply. Inoltre applica una certa funzione (in questo caso raster) ad una lista di file (lstlist)
+lst_import <- lapply(lst_list,raster) #il primo argomento di lapply indica la lista a cui vogliamo applicare la funzione raster che è definita nel secondo argomento 
+lst_import  #visualizza le informazioni relative ai 4 file all'interno di list
 
-#creazione di uno stack, un insieme di dati raster (dati formati da pixel, in questo caso datimultitemporale)
-TGr <- stack(import)  #prende tutti i file e li unisce in un unico blocco
+#raggruppare il pacchetto di file raster separati con la funzione stack
+TGr <- stack(lst_import)  #prende tutti i file che ho importanto con lapply e li unisce in un unico blocco
 TGr #informazioni dello stack
-plot(TGr)
+plot(TGr) #plotta le 4 immagini senza dover fare un par
+
+plotRGB(TGr,1,2,3,stretch='lin')  #file con valori dei vari anni, quindi sovrapposizione delle 3 immagini (2000,2005,2010) con colori dettati dalle immagini.
+#sulla componente red (primo livello) ho messo lst_2000, perciò se ci sono zone in rosso avrò valori più alti di lst nel 2000.
+#sulla componente green (secondo livello) ho messo lst_2005, perciò se trovo dei colori verdi, significa che c'è un valore più alto nell'lst nel 2005.
+#sulla componente blue (terzo livello) ho messo lst_2010 ci sono zone in blu avrò valori più alti di lst nel 2010. 
+#il centro della Groenlandia è blu perciò si piò pensare che la temperatura sia più alta nel 2010, perchè è il livello più alto
+plotRGB(TGr,2,3,4,stretch='lin')  #nell'anno più recente (2015) ho valori più alti
 
 levelplot(TGr$lst_2000) #come varia la temperatura nella zona. Il grafico grigio sopra l'immagine indica la temperatura del ghiaccio
 levelplot(TGr$lst_2005)
