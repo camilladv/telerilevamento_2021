@@ -1,4 +1,12 @@
 #R_code_copernicus_r
 #Visualizing Copernicus data
 
-install.packages('ncdf4')
+#install.packages('ncdf4')
+library(raster)
+library(ncdf4)
+
+setwd('C:/lab')
+
+#carichiamo un singolo strato, quindi si usa la funzione raster
+water_bodies<-raster('c_gls_WB300_202010010000_GLOBE_PROBAV_V1.0.1.nc')
+water_bodies
