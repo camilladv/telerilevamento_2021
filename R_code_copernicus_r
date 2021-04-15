@@ -1,4 +1,4 @@
 #R_code_copernicus_r
 #Visualizing Copernicus data
 
-install.packages 
+install.packages('ncdf4')
