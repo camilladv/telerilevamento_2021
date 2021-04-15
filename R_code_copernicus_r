@@ -9,8 +9,16 @@ setwd('C:/lab')
 
 #carichiamo un singolo strato, quindi si usa la funzione raster
 water_bodies<-raster('c_gls_WB300_202010010000_GLOBE_PROBAV_V1.0.1.nc')
-water_bodies  #coordinate geografiche, datum WGS84
+WB<-water_bodies  #rinonimo lo strato
+WB  #coordinate geografiche, datum WGS84
 
 #siccome abbiamo un singolo strato possiamo decidere quali colori usare
-cl<-colorRampPalette('lightblue','green','purple','red')
-plot(water_bodies)
+cl<-colorRampPalette(c('lightblue','green','purple','red'))
+plot(WB,col=cl)
+
+#diminuiamo la risoluzione dell'immagine, ricampionando il dataset con la funzione aggregate
+#l'immagine iniziale ha n. pixel. Prendo un pixel più grande ed estraggo la media dei valori di tutti i pixel al suo interno. Quindi riduco il numero di pixel dell'immagine.
+#il fattore fact diminuisce lineramente n volte (n=10, diminuisco di 100 valori e li accorpo in un solo pixel)-->linearmente prende n pixel e ne calcola uno. Ricampionamento bilineare
+WB_res<-aggregate(WB,fact=100)  #100x100=10000 volte
+plot(WB_res,col=lc)
+
