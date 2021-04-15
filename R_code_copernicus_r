@@ -9,4 +9,8 @@ setwd('C:/lab')
 
 #carichiamo un singolo strato, quindi si usa la funzione raster
 water_bodies<-raster('c_gls_WB300_202010010000_GLOBE_PROBAV_V1.0.1.nc')
-water_bodies
+water_bodies  #coordinate geografiche, datum WGS84
+
+#siccome abbiamo un singolo strato possiamo decidere quali colori usare
+cl<-colorRampPalette('lightblue','green','purple','red')
+plot(water_bodies)
