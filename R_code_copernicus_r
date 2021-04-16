@@ -22,3 +22,6 @@ plot(WB,col=cl)
 WB_res<-aggregate(WB,fact=100)  #100x100=10000 volte
 plot(WB_res,col=lc)
 
+#usiamo l
+#la funzione stitch crea automaticamente un report basato su uno script di R
+#template tipo misc
