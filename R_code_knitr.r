@@ -13,7 +13,6 @@ library(tinytex)
 stitch('R_code_greenland.r',template=system.file('misc','knitr-template.Rnw',package='knitr'))  
 
 #errore con LaTeX
-#registrazione a circa 55 minuti
 
 
 
