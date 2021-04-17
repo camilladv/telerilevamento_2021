@@ -9,6 +9,8 @@ library(knitr)  #o require(knitr), è uguale
 
 install.packages('tinytex')
 library(tinytex)
+tinytex::install_tinytex()
+tinytex::tlmgr_update()
 
 stitch('R_code_greenland.r',template=system.file('misc','knitr-template.Rnw',package='knitr'))  
 
