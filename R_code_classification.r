@@ -24,7 +24,25 @@ plot(soc$map)  #plot dell'immagine classificata e della mappa
 #funzione per fare in modo che l'immagine sia sempre uguale, utilizzando lo stesso training set
 set.seed(42)
 
-#aumentare il numero delle classi
-socv<-unsuperClass(so,nClasses=20)
-plot(socv$map)
+#Unsupervised Classification with 20 classes: aumentare il numero delle classi. Questa classificazione è basata sui valori della riflettanza
+soct<-unsuperClass(so,nClasses=20)
+plot(soct$map)
+cl<-colorRampPalette(c('yellow','red','brown'))(100)
+plot(soct$map,col=cl)
 
+#Scaricare un'immagine da:
+#https://www.esa.int/ESA_Multimedia/Missions/Solar_Orbiter/(result_type)/images
+sun<-brick('Sun_s_corona.png')
+plot(sun)
+
+#Unsupervised Classification con 3 classi di sun
+sunc<-unsuperClass(sun,nClasses=3)
+plot(sunc$map)
+
+#le immagini possono avere dei rumori he interferiscono con la classificazione, ad esempio ombre, nuvole
+#per lavorare con le nuvole in un'immagine ci sono 3 sistemi:
+#1: in alcuni dati ci sono delgi strati 'mask' che contengono le nuvole e le ombre e si fa una sottrazione del raster
+#2: si inserisce nella classificazione e si dichiara e che erano nuvole
+#3: si usa un altro tipo di sensore, quello attivo, come i segnali radar, che attraversano le nuvole e quindi non vengono visualizzate
+
+#Visualizzare immagine Canyon
