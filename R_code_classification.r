@@ -34,7 +34,6 @@ plot(soct$map,col=cl)
 #https://www.esa.int/ESA_Multimedia/Missions/Solar_Orbiter/(result_type)/images
 sun<-brick('Sun_s_corona.png')
 plot(sun)
-
 #Unsupervised Classification con 3 classi di sun
 sunc<-unsuperClass(sun,nClasses=3)
 plot(sunc$map)
@@ -45,4 +44,28 @@ plot(sunc$map)
 #2: si inserisce nella classificazione e si dichiara e che erano nuvole
 #3: si usa un altro tipo di sensore, quello attivo, come i segnali radar, che attraversano le nuvole e quindi non vengono visualizzate
 
-#Visualizzare immagine Canyon
+#Visualizzare immagine Grand Canyon
+#https://landsat.visibleearth.nasa.gov/view.php?id=80948
+
+library(raster)
+library(RStoolbox)
+setwd('C:/lab/')
+
+#importo l'immagine
+gc<-brick('dolansprings_oli_2013088_canyon_lrg.jpg')
+
+#visualizzo l'immagine in RGB a colori visibili
+plotRGB(gc,r=1,g=2,b=3,stretch='lin')
+plotRGB(gc,r=1,g=2,b=3,stretch='hist') #effetto maggiore
+
+#Unsupervised Classification basata sul maximum likehood
+gcc2<-unsuperClass(gc,nClasses=2)
+gcc2
+plot(gcc2$map) #in uscita da il numero di classi e la mappa, quindi per visualizzare la mappa dobbiamo inserire il dollaro nel comando
+#la zona centrale può essere un tipo di roccia caratteristico. Ha un valore di riflettanzamaggiore a cui è stato associato il valore 1 
+
+#classificazione con 4 classi
+gcc4<-unsuperClass(gc,nClasses=4)
+plot(gcc4$map)  #per capire la differenziazione nella classi e assegnare delle informazioni bisognerebbe andare a terra
+
+#se usassimo anche la banda dell'infrarosso verrebbe visualizzata anche l'acqua
