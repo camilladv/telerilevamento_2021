@@ -64,7 +64,7 @@ plot(p224r63_2011res_pca$map) #la prima componente PC1 ha molta variabilità e c
 p224r63_2011res_pca
 
 
-
+47.27
 
 
 
