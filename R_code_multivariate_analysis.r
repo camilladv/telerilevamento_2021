@@ -62,9 +62,17 @@ plot(p224r63_2011res_pca$map) #la prima componente PC1 ha molta variabilità e c
 
 #informazioni della PCA
 p224r63_2011res_pca
+#prima informazione: call. Funzione usata
+#model
+#mappa: rasterbrick con risoluzione uguale a quella originale, 7 bande
 
+#plotRGB delle 3 componenti principali della mappa risultante dalla PCA. E' l'analisi risultante dalle componenti principali
+plotRGB(p224r63_2011res_pca$map,r=1,g=2,b=3,stretch='lin')  #colori legati alle 3 componenti, non danno molto informazioni
 
-47.27
+#plottare la prima componente contro la seconda per vedere se c'è correlazione
+plotRGB(p224r63_2011res_pca$map$PC1,p224r63_2011res_pca$map$PC2)  #non sono correlate tra loro
+
+str(p224r63_2011res_pca) #da informazioni complete sul file
 
 
 
