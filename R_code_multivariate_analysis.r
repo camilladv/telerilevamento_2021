@@ -70,9 +70,13 @@ p224r63_2011res_pca
 plotRGB(p224r63_2011res_pca$map,r=1,g=2,b=3,stretch='lin')  #colori legati alle 3 componenti, non danno molto informazioni
 
 #plottare la prima componente contro la seconda per vedere se c'è correlazione
-plotRGB(p224r63_2011res_pca$map$PC1,p224r63_2011res_pca$map$PC2)  #non sono correlate tra loro
+plotRGB(p224r63_2011res_pca$map$PC1,p224r63_2011res_pca$map$PC2)  #non sono correlate tra loro (come deve essere)
 
 str(p224r63_2011res_pca) #da informazioni complete sul file
+
+#Analisi PCA: genera delle nuove componenti che diminuiscono la correlazione iniziale e, con un numero minore di componenti, possiamo spiegare tutta l'immagine togliendo la correlazione.
+#E' importante fare la PCA per ridurre la correlazione tra le variabili quando, per esempio, si fa un'analisi con variabili molto correlate tra di loro a cui non è consigliato applicare un modello lineare.
+#In generale si applica l'analisi delle componenti principali se si ha un set di dati con molte variabili 
 
 
 
