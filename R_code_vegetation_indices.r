@@ -48,7 +48,7 @@ plot(dvi2,col=cl,main='DVI at time 2')
 
 #per ogni pixel calcolo la differenza di dvi1-dvi2 e ottengo la mappa delle differenze nel dvi
 difdvi<-dvi1-dvi2
-
+#visualizzo la mappa della differenza nel dvi
 cld<-colorRampPalette(c('blue','white','red'))(100)
 plot(difdvi,col=cld)  #il colore rosso indica valori di differenza maggiori; dove la differenza è più bassa il colore è bianco e azzurro.
 #indica dove c'è stata una sofferenza molto alta da parte della vegetazione
@@ -64,8 +64,9 @@ plot(ndvi1,col=cl)  #il range dei valori è tra -1 e +1.
 ndvi2<-(defor2$defor2.1-defor2$defor2.2)/(defor2$defor2.1+defor2$defor2.2)  #uguale a scrivere dvi2/(defor2$defor2.1+defor2$defor2.2)
 plot(ndvi2,col=cl)
 
+#differenza nell'NDVI e visualizzazione della mappa
 difndvi<-ndvi1-ndvi2
-plot(difndvi,col=cld)
+plot(difndvi,col=cld) #il rosso indica le zone con maggiore perdita di vegetazione
 
 #nel pacchetto RStoolbox c'è la funzione spectralIndices che calcola indici come NDVI, SAVI, ecc...
 library(RStoolbox)  #per calcolare gli indici di vegetazione
@@ -77,8 +78,6 @@ plot(vi1,col=cl) #visualizza 15 indici di vario tipo, per esempio di vegetazione
 #spectralIndices di defor2
 vi2<-spectralIndices(defor2,green=3,red=2,nir=1)
 plot(vi2,col=cl)
-
-
 
 
 
