@@ -79,9 +79,18 @@ plot(vi1,col=cl) #visualizza 15 indici di vario tipo, per esempio di vegetazione
 vi2<-spectralIndices(defor2,green=3,red=2,nir=1)
 plot(vi2,col=cl)
 
+#NDVI mondiale. Dati dal 1999 al 2017
+install.packages('rasterdiv') #per NDVI mondiale
+library(rasterdiv)
+library(rasterVis)
 
+plot(copNDVI) #l'acqua sono dei valori che non ci servono per l'NDVI
+copNDVI<-reclassify(copNDVI,cbind(253:255,NA))  ##reclassify è una funzione per eliminare l'acqua. i pixel con i valori da 253 a 255 possono essere trasformati in non-valori
+plot(copNDVI) #visualizza NDVI a scala globale senza l'acqua. In Nord Europa e in Nord America l'NDVI è più alto
 
-
-
-
-
+#serve il pacchetto rasterVis
+levelplot(copNDVI)  #dati dal 99 al 2017 valori medi. I valori più alti sono nelle foreste amazzonica, del borneo, centro africa e del Nord America.
+#Nel resto i valori sono molti bassi, per i deserti in Africa e in Asia e per la neve ai poli.
+#Nella fascia 23°N ci sono i deserti: sono tutti concentrati qui. Questo perchè nelle zone di grandi foreste c'è un'altissima evapotraspirazione.
+#Le piante creano una differenza di pressione. L'aria viene scaricata dal vapore acqueo e diventa secca e si riversa a terra nelle zone attigue a quelle delle grandi foreste
+#da un'idea dell'estensione della biomassa nel pianeta
