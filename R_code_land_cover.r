@@ -60,7 +60,6 @@ plot(d2c3$map)  #distingue la foresta in una classe e la zona agricola in due cl
 
 #quanto è stato perso di foresta
 #calcolo della frequenza dei pixel di una certa classe. Quanti pixel di foresta ci sono? Quanti pixel di zona agricola ci sono?
-
 #proporzioni delle 2 classi nell'immagine defor1
 freq(d1c$map)
 #     value  count
@@ -68,7 +67,8 @@ freq(d1c$map)
 # [2,]     2 306344     #ci sono 306344 pixel nella foresta
 
 #proporzione (percentuale) dei pixel nelle 2 classi
-s1<-34948+306344  #341292. Questo numero si trova anche in d1c
+s1<-34948+306344  
+s1   #341292. Questo numero si trova anche in d1c
 prop1<-freq(d1c$map)/s1
 prop1
 #             value     count
@@ -81,14 +81,40 @@ freq(d2c$map)
 # [1,]     1 163672     #zona agricola
 # [2,]     2 179054     #foresta
 s2<-163672+179054  #342726. Questo numero si trova anche in d2c
+s2    #342726. Questo numero si trova anche in d2c
 prop2<-freq(d2c$map)/s2
 prop2
 #             value     count
 # [1,] 2.917783e-06 0.4775593   #48% agricolo
 # [2,] 5.835565e-06 0.5224407   #52% foresta
 
+#generazione di un dataframe (=dataset)
+#1 colonna contenente i fattori: variabili categoriche (foresta e agricolo). 1 colonna contenente le percentuali nel 1992 e un'altra con le percentualil del 2006 
+#costruisco le colonne che mi interessa avere nel dataframe
+cover<-c('Forest','Agriculture')  #colonna cover contenente due righe: Agriculture e Forest. Sono due vettori quindi utilizzo le virgolette e la c  
+percent_1992<-c(89.76,10.23) #colonna contenente i valori percentuali di defor1 che ricavo da prop1
+percent_2006<-c(52.24,47.75)  #colonna contenente i valori percentuali di defor2 che ricavo da prop2
+#creo il dataframe con il comando data.frame
+percentages<-data.frame(cover,percent_1992,percent_2006)
+#         cover percent_1992 percent_2006
+# 1      Forest        89.76        52.24
+# 2 Agriculture        10.23        47.75
 
-circa 1 ora e 10 di lezione
+#ggplot del dataframe (mpg). aes definisce l'estetica: descrive gli assi x e y e color si riferisce in base a quali oggetti vogliamo discriminare 
+#al ggplot si aggiunge il comando geom_bar che crea un istogramma. stat='identify' vuol dire che mantiene i dati così come sono, fill è il colore di riempimento degli istogrammi
+ggplot(percentages,aes(x=cover,y=percent_1992,color=cover))+geom_bar(stat='identity',fill='white')  #istogramma con le percentuali del 1992
+ggplot(percentages,aes(x=cover,y=percent_2006,color=cover))+geom_bar(stat='identity',fill='white')  #istogramma con le percentuali del 2006
+
+p1<-ggplot(percentages,aes(x=cover,y=percent_1992,color=cover))+geom_bar(stat='identity',fill='white')
+p2<-ggplot(percentages,aes(x=cover,y=percent_2006,color=cover))+geom_bar(stat='identity',fill='white')
+
+#uniamo i due grafici nella stessa finestra
+grid.arrange(p1,p2,nrow=1) #argomenti e numero di righe
+
+
+
+
+
 
 
 
