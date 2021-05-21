@@ -34,7 +34,7 @@ clsd<-colorRampPalette(c('blue','green','pink','magenta','orange','brown','red',
 plot(ndvisd3,col=clsd)  #colori tendendi al rosso e al giallo la sd è più alta
 
 
-1.05
+1h05
 
 
 
