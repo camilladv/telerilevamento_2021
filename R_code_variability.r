@@ -31,10 +31,16 @@ plot(ndvi,col=cl)
 ndvisd3<-focal(ndvi,w=matrix(1/9,nrow=3,ncol=3),fun=sd) #w è la window, inseriamo la dimensione della matrice, solitamente quadrata; sd deviaizone standard
 plot(ndvisd3)
 clsd<-colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100)
-plot(ndvisd3,col=clsd)  #colori tendendi al rosso e al giallo la sd è più alta
+plot(ndvisd3,col=clsd)  #colori tendendi al rosso e al giallo la deviazione standard è più alta.
+#La sd è molto bassa nelle zone di roccia nuda (blu), mentre aumenta nelle zone di confine tra roccia e vegetazione (verde), è omogenea e più alta nelle parti vegetate (es. prateria d'alta quota). Picchi di alti, crepacci in rosa
 
+#media sull'NDVI
+ndvimean3<-focal(ndvi,w=matrix(1/9,nrow=3,ncol=3),fun=mean)
+plot(ndvimean3,col=clsd)  #valori alti per la vegetazione e valori bassi per la roccia mura
 
-1h05
+#cambio della matrice
+ndvisd15<-focal(ndvi,w=matrix(1/225,nrow=15,ncol=15),fun=sd
+plot(ndvisd15,col=clsd)
 
 
 
