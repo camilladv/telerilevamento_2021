@@ -32,15 +32,35 @@ ndvisd3<-focal(ndvi,w=matrix(1/9,nrow=3,ncol=3),fun=sd) #w è la window, inseria
 plot(ndvisd3)
 clsd<-colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100)
 plot(ndvisd3,col=clsd)  #colori tendendi al rosso e al giallo la deviazione standard è più alta.
-#La sd è molto bassa nelle zone di roccia nuda (blu), mentre aumenta nelle zone di confine tra roccia e vegetazione (verde), è omogenea e più alta nelle parti vegetate (es. prateria d'alta quota). Picchi di alti, crepacci in rosa
+#La sd è molto bassa nelle zone di roccia nuda (blu), mentre aumenta nelle zone di confine tra roccia e vegetazione (verde).
+# E'omogenea e più alta nelle parti vegetate (es. prateria d'alta quota) e le parti rosa indicano i crepacci, in cui la variabilità è più alta
 
 #media sull'NDVI
 ndvimean3<-focal(ndvi,w=matrix(1/9,nrow=3,ncol=3),fun=mean)
 plot(ndvimean3,col=clsd)  #valori alti per la vegetazione e valori bassi per la roccia mura
 
 #cambio della matrice
-ndvisd15<-focal(ndvi,w=matrix(1/225,nrow=15,ncol=15),fun=sd
-plot(ndvisd15,col=clsd)
+ndvisd7<-focal(ndvi,w=matrix(1/49,nrow=7,ncol=7),fun=sd)
+plot(ndvisd7,col=clsd)  #raggruppamento dei pixel
+#la dimenzione della finestra dipende dalla risoluzione spaziale dell'immagine e dall'analisi che vogliamo fare
+#in questo caso la matrice ottimale è 5x5
+ndvisd5<-focal(ndvi,w=matrix(1/25,nrow=5,ncol=5),fun=sd)
+plot(ndvisd5,col=clsd)
+
+#Utilizziamo la banda PC1 per calcolare la deviazione standard
+#PCA (analisi multivariata)
+sentpca<-rasterPCA(sent)
+sentpca
+summary(sentpca$model)
+# Importance of components:
+#                            Comp.1     Comp.2      Comp.3 Comp.4
+# Standard deviation     77.3362848 53.5145531 5.765599616      0
+# Proportion of Variance  0.6736804  0.3225753 0.003744348      0
+# Cumulative Proportion   0.6736804  0.9962557 1.000000000      1
+      
+#la prima componente principale è quella che spiega il 67% dell'informazione originale
+plot(sentpca$map)
+
 
 
 
