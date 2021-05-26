@@ -39,7 +39,7 @@ plot(ndvisd3,col=clsd)  #colori tendendi al rosso e al giallo la deviazione stan
 ndvimean3<-focal(ndvi,w=matrix(1/9,nrow=3,ncol=3),fun=mean)
 plot(ndvimean3,col=clsd)  #valori alti per la vegetazione e valori bassi per la roccia mura
 
-#cambio della matrice
+#cambio delle dimensioni della matrice
 ndvisd7<-focal(ndvi,w=matrix(1/49,nrow=7,ncol=7),fun=sd)
 plot(ndvisd7,col=clsd)  #raggruppamento dei pixel
 #la dimenzione della finestra dipende dalla risoluzione spaziale dell'immagine e dall'analisi che vogliamo fare
@@ -58,9 +58,22 @@ summary(sentpca$model)
 # Proportion of Variance  0.6736804  0.3225753 0.003744348      0
 # Cumulative Proportion   0.6736804  0.9962557 1.000000000      1
       
-#la prima componente principale è quella che spiega il 67% dell'informazione originale
+#la prima componente principale spiega il 67% della variabilità, quindi contiene la maggiore informazione
 plot(sentpca$map)
 
+sentpca$map #permette di vedere i nomi delle componenti priccipali
+#...
+# names      :       PC1,       PC2,       PC3,       PC4
 
+pc1<-sentpca$map$PC1   #creato l'oggetto della prima componente principale a cui applicare la funzione focal
+
+#applicazione della funzione focal per la deviazione standard sulla pc1
+pc1sd5<-focal(pc1,w=matrix(1/25,nrow=5,ncol=5),fun=sd)
+clpc<-colorRampPalette(c('blue','green','purple','magenta','orange','brown','red','yellow'))(100)
+plot(pc1sd5,col=clpc)   #la parte di vegetazione è blu ed omogenea (pascoli), aumento di variabilità nelle zone di roccia
+
+#richiamare un pezzo di codice con il comando source
+source('source_test_lezione.r')     #non si vedono i comandi, appare solo il risultato finale
+#deviazione standard di una finestra 7x7 su pc1
 
 
