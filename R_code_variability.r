@@ -72,8 +72,10 @@ pc1sd5<-focal(pc1,w=matrix(1/25,nrow=5,ncol=5),fun=sd)
 clpc<-colorRampPalette(c('blue','green','purple','magenta','orange','brown','red','yellow'))(100)
 plot(pc1sd5,col=clpc)   #la parte di vegetazione è blu ed omogenea (pascoli), aumento di variabilità nelle zone di roccia
 
-#richiamare un pezzo di codice con il comando source
+#richiamare un pezzo di codice presente nella cartella lab con il comando source
 source('source_test_lezione.r')     #non si vedono i comandi, appare solo il risultato finale
 #deviazione standard di una finestra 7x7 su pc1
 
+
+lezione 21/05 43.50
 
