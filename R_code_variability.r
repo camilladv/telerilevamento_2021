@@ -2,6 +2,10 @@
 
 library(raster)
 library(RStoolbox)
+library(ggplot2)  #per plottare i ggplot
+library(gridExtra)  #per plottare insieme i ggplots
+#install.packages('viridis')
+library(viridis)  #serve per colorare i ggplot in modo automatico
 setwd('C:/lab/')
 
 #importo su R l'immagine sentinel
@@ -72,10 +76,33 @@ pc1sd5<-focal(pc1,w=matrix(1/25,nrow=5,ncol=5),fun=sd)
 clpc<-colorRampPalette(c('blue','green','purple','magenta','orange','brown','red','yellow'))(100)
 plot(pc1sd5,col=clpc)   #la parte di vegetazione è blu ed omogenea (pascoli), aumento di variabilità nelle zone di roccia
 
-#richiamare un pezzo di codice presente nella cartella lab con il comando source
+#richiamare un pezzo di codice presente nella working directory lab con la funzione source
 source('source_test_lezione.r')     #non si vedono i comandi, appare solo il risultato finale
 #deviazione standard di una finestra 7x7 su pc1
 
+#funzione source
+source('source_ggplot.r')
+#vediamo i comandi all'interno.
+#dobbiamo plottiamo i dati, quindi prima creiamo la finestra vuota tramite la funzione ggplot contenuta nel pacchetto ggplot2. Con il + si aggiungono dei pezzi alla finestra
+# ggplot() +
+# geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +      #viene definita la geometria (raster, perchè abbiamo dei pixel) della mappa pc1sd5.
+                      #poi definiamo le estetics con mapping: sull'asse x mettiamo la x, sull'asse y la y e come valori di riempimento lo strato (layer)                       
+#la parte in alto a sinistra con i crepacci è molto visibile con la dev. standard in ggplot, perchè è molto varibaile
+#a livello geografico si nota ogni differenza geomorfologica, a livello ecologico serve ad individuare qualisasi variabilità ecologica (es. ecotipi)
+# scale_fill_viridis() +     #per inserirla è sufficiente aggiungere il nome della legenda al codice, non serve scrivere una colorRampPalette. Non aggiungendo un nome di legenda quella utilizzata è la default 
+#garantisce che tutte le leggende utilizzate possano essere viste da chiunque, anche da chi ha patologie alla vista.
+#ggtitle('Standard deviation of OC1 by viridis colour scale')     #inserisce un titolo al grafico
 
-lezione 21/05 43.50
+#la funzione intera è:
+ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) + scale_fill_viridis() + ggtitle('Standard deviation of PC1 by viridis colour scale')
 
+#cambiamo la legenda colore, usiamo magma
+ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) + scale_fill_viridis(option='magma') + ggtitle('Standard deviation of PC1 by magma colour scale')
+#le zone con alta deviaizone standard si vedono molto bene
+
+#usiamo la legenda inferno
+
+ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) + scale_fill_viridis(option='inferno') + ggtitle('Standard deviation of PC1 by inferno colour scale')
