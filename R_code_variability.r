@@ -94,15 +94,19 @@ source('source_ggplot.r')
 #ggtitle('Standard deviation of OC1 by viridis colour scale')     #inserisce un titolo al grafico
 
 #la funzione intera è:
-ggplot() +
+p1<-ggplot() +
 geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) + scale_fill_viridis() + ggtitle('Standard deviation of PC1 by viridis colour scale')
 
-#cambiamo la legenda colore, usiamo magma
-ggplot() +
-geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) + scale_fill_viridis(option='magma') + ggtitle('Standard deviation of PC1 by magma colour scale')
-#le zone con alta deviaizone standard si vedono molto bene
-
 #usiamo la legenda inferno
-
-ggplot() +
+p2<-ggplot() +
 geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) + scale_fill_viridis(option='inferno') + ggtitle('Standard deviation of PC1 by inferno colour scale')
+
+#usiamo la legenda turbo
+p3<-ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) + scale_fill_viridis(option='turbo') + ggtitle('Standard deviation of PC1 by turbo colour scale')
+
+#uniamole in un'unica finestra. Prima assegniamo un nome ai 3 diversi grafici
+grid.arrange(p1,p2,p3,nrow=1)
+#la legenda turbo ha il giallo che risalta molto, ma indica valori medi, quindi non è molto potente dal punto di vista comunicativo.
+#Lo scopo di queste mappe è mettere in evidenza le zone con la massima variabilità, quindi con un colore che salta all'occhio.
+#Quelle utili dal punto di vista informativo sono viridis e magma
