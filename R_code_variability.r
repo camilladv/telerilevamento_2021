@@ -110,3 +110,5 @@ grid.arrange(p1,p2,p3,nrow=1)
 #la legenda turbo ha il giallo che risalta molto, ma indica valori medi, quindi non è molto potente dal punto di vista comunicativo.
 #Lo scopo di queste mappe è mettere in evidenza le zone con la massima variabilità, quindi con un colore che salta all'occhio.
 #Quelle utili dal punto di vista informativo sono viridis e magma
+
+
