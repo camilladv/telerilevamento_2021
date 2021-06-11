@@ -110,11 +110,3 @@ p2<-ggplot(percentages,aes(x=cover,y=percent_2006,color=cover))+geom_bar(stat='i
 
 #uniamo i due grafici nella stessa finestra
 grid.arrange(p1,p2,nrow=1) #argomenti e numero di righe
-
-
-
-
-
-
-
-
