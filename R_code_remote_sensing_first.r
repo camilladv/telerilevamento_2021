@@ -1,4 +1,4 @@
- Primo codice R per il telerilevamento
+Primo codice R per il telerilevamento
 
 #install.packages("raster")
 library(raster)     #richiama il pacchetto raster
