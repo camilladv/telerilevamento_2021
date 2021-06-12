@@ -335,10 +335,10 @@ plot(sun)
 sunc<-unsuperClass(sun,nClasses=3)
 plot(sunc$map)
 
-#le immagini possono avere dei rumori he interferiscono con la classificazione, ad esempio ombre, nuvole
+#le immagini possono avere dei rumori che interferiscono con la classificazione, ad esempio ombre, nuvole
 #per lavorare con le nuvole in un'immagine ci sono 3 sistemi:
 #1: in alcuni dati ci sono delgi strati 'mask' che contengono le nuvole e le ombre e si fa una sottrazione del raster
-#2: si inserisce nella classificazione e si dichiara e che erano nuvole
+#2: si inserisce nella classificazione e si dichiara che erano nuvole
 #3: si usa un altro tipo di sensore, quello attivo, come i segnali radar, che attraversano le nuvole e quindi non vengono visualizzate
 
 #Visualizzare immagine Grand Canyon
