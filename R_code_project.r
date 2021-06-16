@@ -13,6 +13,7 @@ par(mfrow=c(2,1))
 plotRGB(lv13,r=1,g=2,b=3,stretch='lin')
 plotRGB(lv21,r=1,g=2,b=3,stretch='lin')
 
+#NON VA BENE, PERCHè LE BANDE UTILIZZATE SONO A COLORI VISIBILI
 
 
 
