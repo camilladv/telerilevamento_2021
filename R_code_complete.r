@@ -396,7 +396,7 @@ p224r63_2011
 
 #immagine Landsat: B1=blu, B2=verde, B3=rosso, B4=NIR, B5=infrarosso medio, B6=infrarosso termico, B7=infrarosso medio
 
-#plottiamo la banda del blu contro quella del verde per vedere la correlazione. Dalle informazioni precedentiLa la banda del blu è la B1_sre, la banda del verde la B2_sre
+#plottiamo la banda del blu contro quella del verde per vedere la correlazione. Dalle informazioni precedenti la banda del blu è la B1_sre, la banda del verde la B2_sre
 plot(p224r63_2011$B1_sre,p224r63_2011$B2_sre,col='red',pch=20,cex=1) #il pch cambia il simbolo del punto, cex cambia la grandezza. Sulla x c'è B1 e sulla y la B2
 #sono due bande molto correlate tra loro linearmente
 
