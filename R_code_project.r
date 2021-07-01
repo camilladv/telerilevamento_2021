@@ -1,5 +1,8 @@
 #install.packages("raster")
+#install.packages("RStoolbox")
 library(raster)
+library(RStoolbox)  #per classificazione
+
 
 #set working directory
 setwd('C:/lab/Progetto')
@@ -37,12 +40,15 @@ NDVI80<-(NIR80-RED80)/(NIR80+RED80)
 difNDVI<-NDVI79-NDVI80
 plot(difNDVI)
 
+#classificazione dei pixel delle immagini per vedere la copertura del suolo
+sth79c<-unsuperClass(sth79,nClasses=2) 
+sth79c
+plot(sth79c$map)
 
 
+#install.packeages('ggplot2')
+library(ggplot2)
 
-
-#install.packages("RStoolbox")
-library(RStoolbox)  #per calcolare gli indici di vegetazione
 #vari indici di vegetazione per sth79
 vi79<-spectralIndices(sth79,green=3,red=2,nir=1)
 
