@@ -131,8 +131,8 @@ cover_perc
 # 5 Vegetazione   34.58   27.09
 
 #Firme spettrali delle zone che hanno subito una maggiore differrenziazione 
-#apro il plot su cui cliccare
-plotRGB(sth79)
+
+plotRGB(sth79)  #apro il plot su cui cliccare
 click(sth79,id=T,xy=T,cell=T,type='p',pch=16,col='yellow')  #immagine, crea un id per ogni punto selezionato; utilizziamo un'informazione spaziale;
                                                             #n. pixel cliccato; p point; forma simbolo; colore simbolo nella mappa
 #      x     y   cell    sthelens_ms3_19790829_lrg.1 sthelens_ms3_19790829_lrg.2 sthelens_ms3_19790829_lrg.3
@@ -165,24 +165,22 @@ sth79_3<-c(209,123,122) #Punto 3:Vegetazione più rada
 sth81_3<-c(146,123,115)
 
 #creo il dataset
-spectral<-data.frame(band,sth79_1,sth81_1,sth79_2,sth81_2,sth79_3,sth81_3)
+spectral<-data.frame(band,sth79_1,sth81_1,sth79_2,sth81_2,sth79_3,sth81_3)  #inserisco le colonne del dataset
 spectral
 #    band sth79_1 sth81_1 sth79_2 sth81_2 sth79_3 sth81_3
 # 1    1      35     190     146     218     209     146
 # 2    2      22     172      21     216     123     123
 # 3    3      48     152      29     201     122     115
 
-#visualizzo le firme spettrali
+#visualizzo le firme spettrali: quelle riferite al 1979 sono indicate da una linea continua, quelle riferite al 1981 da una linea tratteggiata. Uguale colore per uguale punto
 ggplot(spectral,aes(x=band))+ 
-  geom_line(aes(y=sth79_1),col='red',linetype='solid') +  #linetype inserisce dei punti al posto della linea continua
+  geom_line(aes(y=sth79_1),col='red',linetype='solid') +  
   geom_line(aes(y=sth81_1),col='red',linetype='dashed') +
   geom_line(aes(y=sth79_2),col='blue',linetype='solid') + 
   geom_line(aes(y=sth81_2),col='blue',linetype='dashed') +
   geom_line(aes(y=sth79_3),col='orange',linetype='solid') + 
   geom_line(aes(y=sth81_3),col='orange',linetype='dashed') +
   labs(x='band',y='reflectance')
-
-
-
-
+#aes definisce l'estetica: per ogni geom_line definisco l'asse y, quindi la colonna del database da cui prendere le informazioni, il colore e il tipo della linea.
+#labs definisce gli assi x e y.
 
