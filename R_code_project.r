@@ -25,7 +25,6 @@ ggRGB(sth81,r=1,g=2,b=3,stretch='lin')
 h79<-ggRGB(sth79,r=1,g=2,b=3)
 h81<-ggRGB(sth81,r=1,g=2,b=3,stretch='lin')
 grid.arrange(h79,h81,nrow=1)  #immagini disposte su 1 riga
-#si può notare come è cambiato il colore dell'acqua nel lago sotto, vicino al cratere. Il blu è più chiaro, indica maggiori solidi al suo interno
 dev.off()
 
 #calcolo NDVI per sth79, quindi cerco il nome delle bande
@@ -130,6 +129,31 @@ cover_perc
 # 3     Foresta   33.00   32.81
 # 4  Suolo nudo    4.22    8.11
 # 5 Vegetazione   34.58   27.09
+
+#Firme spettrali delle zone che hanno subito una maggiore differrenziazione 
+#apro il plot su cui cliccare
+plotRGB(sth79)
+click(sth79,id=T,xy=T,cell=T,type='p',pch=16,col='yellow')  #immagine, crea un id per ogni punto selezionato; utilizziamo un'informazione spaziale;
+                                                            #n. pixel cliccato; p point; forma simbolo; colore simbolo nella mappa
+#      x     y   cell    sthelens_ms3_19790829_lrg.1 sthelens_ms3_19790829_lrg.2 sthelens_ms3_19790829_lrg.3
+# 1 721.5 788.5 296902                           7                          16                          33
+#                        
+#       x     y   cell   sthelens_ms3_19790829_lrg.1 sthelens_ms3_19790829_lrg.2  sthelens_ms3_19790829_lrg.3
+# 1 854.5 590.5 495827                         124                          56                          55
+#                       
+#       x     y   cell   sthelens_ms3_19790829_lrg.1 sthelens_ms3_19790829_lrg.2  sthelens_ms3_19790829_lrg.3
+# 1 600.5 867.5 217465                         188                          48                          55
+
+plotRGB(sth81,stretch='lin')
+click(sth81,id=T,xy=T,cell=T,type='p',pch=16,col='yellow')
+#      x     y   cell    sthelens_ms3_19810823_lrg.1 sthelens_ms3_19810823_lrg.2 sthelens_ms3_19810823_lrg.3
+# 1 716.5 793.5 304020                         171                         155                         132
+# 
+#       x     y   cell   sthelens_ms3_19810823_lrg.1 sthelens_ms3_19810823_lrg.2  sthelens_ms3_19810823_lrg.3
+# 1 851.5 591.5 506357                         179                         171                         158
+# 1                         
+#       x     y   cell   sthelens_ms3_19810823_lrg.1 sthelens_ms3_19810823_lrg.2  sthelens_ms3_19810823_lrg.3
+# 1 596.5 857.5 239836                         210                         208                         193
 
 
 
