@@ -17,14 +17,14 @@ sth79 #ha 3 bande: B1 NIR, B2 red e B3 green
 #visualizzo l'immagine che ha la banda del NIR sul rosso. Viene evidenziata la vegetazione
 ggRGB(sth79,r=1,g=2,b=3,stretch='lin')  #coordinate non reali
 
-#importo l'immagine del 1980 (dopo l'eruzione) con tutte le sue bande
-sth80<-brick('sthelens_ms2_19800924_lrg.jpg')
-ggRGB(sth80,r=1,g=2,b=3,stretch='lin')
+#importo l'immagine del 1981 (dopo l'eruzione) con tutte le sue bande
+sth81<-brick('sthelens_ms3_19810823_lrg.jpg')
+ggRGB(sth81,r=1,g=2,b=3,stretch='lin')
 
 #plotto le due immagini in contemporanea
-h79<-ggRGB(sth79,r=1,g=2,b=3,stretch='lin')
-h80<-ggRGB(sth80,r=1,g=2,b=3,stretch='lin')
-grid.arrange(h79,h80,nrow=2)  #immagini disposte su 1 riga
+h79<-ggRGB(sth79,r=1,g=2,b=3)
+h81<-ggRGB(sth81,r=1,g=2,b=3,stretch='lin')
+grid.arrange(h79,h81,nrow=1)  #immagini disposte su 1 riga
 #si può notare come è cambiato il colore dell'acqua nel lago sotto, vicino al cratere. Il blu è più chiaro, indica maggiori solidi al suo interno
 dev.off()
 
@@ -35,16 +35,16 @@ NIR79<-sth79$sthelens_ms3_19790829_lrg.1  #con il $ lego la banda all'immagine
 RED79<-sth79$sthelens_ms3_19790829_lrg.2
 NDVI79<-(NIR79-RED79)/(NIR79+RED79)
 
-#calcolo NDVI per sth80, quindi cerco il nome delle bande
-# names      : sthelens_ms2_19800924_lrg.1, sthelens_ms2_19800924_lrg.2, sthelens_ms2_19800924_lrg.3 
-NIR80<-sth80$sthelens_ms2_19800924_lrg.1
-RED80<-sth80$sthelens_ms2_19800924_lrg.2
-NDVI80<-(NIR80-RED80)/(NIR80+RED80)
+#calcolo NDVI per sth81, quindi cerco il nome delle bande
+# names      : sthelens_ms3_19810823_lrg.1, sthelens_ms3_19810823_lrg.2, sthelens_ms3_19810823_lrg.3  
+NIR81<-sth81$sthelens_ms3_19810823_lrg.1
+RED81<-sth81$sthelens_ms3_19810823_lrg.2
+NDVI81<-(NIR81-RED81)/(NIR81+RED81)
 
-#confronto i due valori di NDVI del 1979 (prima dell'eruzione) e l'NDVI del 1980 (dopo l'eruzione)
-difNDVI<-NDVI80-NDVI79
+#confronto i due valori di NDVI del 1979 (prima dell'eruzione) e l'NDVI del 1981 (dopo l'eruzione)
+difNDVI<-NDVI81-NDVI79
 cl<-colorRampPalette(c('blue','light green','red'))(100)   
-plot(difNDVI,col=cl)  #le zone con differenza di NDVI negativa, ovvero che hanno subito una maggiore perdita di vegetazione, sono in blu
+plot(difNDVI,col=cl,main='NDVI difference')  #le zone con differenza di NDVI negativa, ovvero che hanno subito una maggiore perdita di vegetazione, sono in blu
 
 #Copertura del suolo prima e dopo l'eruzione. Classificazione in 5 classi
 
@@ -65,14 +65,6 @@ sth79c
 c5<-colorRampPalette(c('brown','blue','green','gray','light green'))(100)
 plot(sth79c$map,col=c5,main='1979 classification')
 #classe 1: roccia + suolo nudo, classe 2: acqua + alcuni versanti, classe 3: foresta, classe 4: neve + suolo nudo, classe 5: vegetazione
-
-#FORSE
-#confronto visivo tra immagine e mappa di classificazione
-par(mfrow=c(1,2))
-plotRGB(sth79,stretch='lin')
-plot(sth79c$map,col=c5,main='1979 classification')
-dev.off()
-
 #calcolo la percentuale di copertura delle varie classi
 freq(sth79c$map)
 #      value  count
@@ -85,14 +77,11 @@ s79<-1088336  #totale di pixel ricavato dalle informazioni dell'immagine
 prop79<-freq(sth79c$map)/s79
 prop79
 #           value      count
-# [1,] 9.188339e-07 0.18490705    --> 18% roccia + suolo nudo
-# [2,] 1.837668e-06 0.09690941    --> 10% acqua + alcuni versanti
-# [3,] 2.756502e-06 0.33005156    --> 33% foresta
-# [4,] 3.675336e-06 0.04227555    --> 4% neve + suolo nudo
-# [5,] 4.594169e-06 0.34585643    --> 35% vegetazione
-
-#carico la foto del 1981 per vedere la differenza di copertura del suolo
-sth81<-brick('sthelens_ms3_19810823_lrg.jpg')
+# [1,] 9.188339e-07 0.18490705   --> 18% roccia + suolo nudo
+# [2,] 1.837668e-06 0.09690941   --> 10% acqua + alcuni versanti
+# [3,] 2.756502e-06 0.33005156   --> 33% foresta
+# [4,] 3.675336e-06 0.04227555   --> 4% neve + suolo nudo
+# [5,] 4.594169e-06 0.34585643   --> 35% vegetazione
 
 #situazione nel 1981
 sth81c<-unsuperClass(sth81,nClasses=5)
@@ -111,14 +100,6 @@ sth81c
 c5<-colorRampPalette(c('brown','blue','green','gray','light green'))(100)
 plot(sth81c$map,col=c5,main='1981 classification')
 #classe 1: roccia + suolo nudo, classe 2: acqua + alcuni versanti, classe 3: foresta, classe 4: neve + suolo nudo, classe 5: vegetazione
-
-#FORSE
-#confronto visivo tra immagine e mappa di classificazione
-par(mfrow=c(1,2))
-plotRGB(sth81,stretch='lin')
-plot(sth81c$map,col=c5,main='1981 classification')
-dev.off()
-
 #calcolo la percentuale di copertura delle varie classi
 freq(sth81c$map)
 #      value  count
@@ -131,12 +112,24 @@ s81<-1098097  #totale di pixel ricavato dalle informazioni dell'immagine
 prop81<-freq(sth81c$map)/s81
 prop81
 #             value     count
-# [1,] 9.106664e-07 0.1494695    --> 15% roccia + suolo nudo
-# [2,] 1.821333e-06 0.1702709    --> 17% acqua + alcuni versanti
-# [3,] 2.731999e-06 0.3281377    --> 33% foresta
-# [4,] 3.642665e-06 0.0811850    --> 8% suolo nudo
-# [5,] 4.553332e-06 0.2709369    --> 27% vegetazione
+# [1,] 9.106664e-07 0.1494695   --> 15% roccia + suolo nudo
+# [2,] 1.821333e-06 0.1702709   --> 17% acqua + alcuni versanti
+# [3,] 2.731999e-06 0.3281377   --> 33% foresta
+# [4,] 3.642665e-06 0.0811850   --> 8% suolo nudo
+# [5,] 4.553332e-06 0.2709369   --> 27% vegetazione
 
+cover<-c('Roccia','Acqua','Foresta','Suolo nudo','Vegetazione')  #colonna cover contenente le 5 classi di copertura del suolo  
+perc_79<-c(18.49,9.69,33.00,4.22,34.58) #colonna contenente i valori percentuali di sth79c che ricavo da prop79
+perc_81<-c(14.94,17.02,32.81,8.11,27.09)  #colonna contenente i valori percentuali di sth81c che ricavo da prop81
+#creo il dataframe con il comando data.frame
+cover_perc<-data.frame(cover,perc_79,perc_81)
+cover_perc
+#         cover perc_79 perc_81
+# 1      Roccia   18.49   14.94
+# 2       Acqua    9.69   17.02
+# 3     Foresta   33.00   32.81
+# 4  Suolo nudo    4.22    8.11
+# 5 Vegetazione   34.58   27.09
 
 
 
