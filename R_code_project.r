@@ -28,7 +28,6 @@ grid.arrange(h79,h80,nrow=2)  #immagini disposte su 1 riga
 #si può notare come è cambiato il colore dell'acqua nel lago sotto, vicino al cratere. Il blu è più chiaro, indica maggiori solidi al suo interno
 dev.off()
 
-
 #calcolo NDVI per sth79, quindi cerco il nome delle bande
 # names      : sthelens_ms3_19790829_lrg.1, sthelens_ms3_19790829_lrg.2, sthelens_ms3_19790829_lrg.3 
 #rinomino le bande del NIR e del red
