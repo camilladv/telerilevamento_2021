@@ -136,40 +136,51 @@ plotRGB(sth79)
 click(sth79,id=T,xy=T,cell=T,type='p',pch=16,col='yellow')  #immagine, crea un id per ogni punto selezionato; utilizziamo un'informazione spaziale;
                                                             #n. pixel cliccato; p point; forma simbolo; colore simbolo nella mappa
 #      x     y   cell    sthelens_ms3_19790829_lrg.1 sthelens_ms3_19790829_lrg.2 sthelens_ms3_19790829_lrg.3
-# 1 721.5 788.5 296902                           7                          16                          33
+# 1 724.5 793.5 291885                           35                          22                          48
 #                        
 #       x     y   cell   sthelens_ms3_19790829_lrg.1 sthelens_ms3_19790829_lrg.2  sthelens_ms3_19790829_lrg.3
-# 1 854.5 590.5 495827                         124                          56                          55
+# 1 689.5 736.5 349078                         146                          21                          29
 #                       
 #       x     y   cell   sthelens_ms3_19790829_lrg.1 sthelens_ms3_19790829_lrg.2  sthelens_ms3_19790829_lrg.3
-# 1 600.5 867.5 217465                         188                          48                          55
+# 1 478.5 860.5 224371                         209                          123                          122
 
 plotRGB(sth81,stretch='lin')
 click(sth81,id=T,xy=T,cell=T,type='p',pch=16,col='yellow')
 #      x     y   cell    sthelens_ms3_19810823_lrg.1 sthelens_ms3_19810823_lrg.2 sthelens_ms3_19810823_lrg.3
-# 1 716.5 793.5 304020                         171                         155                         132
+# 1 726.5 795.5 302028                         190                         172                         152
 # 
 #       x     y   cell   sthelens_ms3_19810823_lrg.1 sthelens_ms3_19810823_lrg.2  sthelens_ms3_19810823_lrg.3
-# 1 851.5 591.5 506357                         179                         171                         158
+# 1 683.5 730.5 367050                         218                         216                         201
 # 1                         
 #       x     y   cell   sthelens_ms3_19810823_lrg.1 sthelens_ms3_19810823_lrg.2  sthelens_ms3_19810823_lrg.3
-# 1 596.5 857.5 239836                         210                         208                         193
+# 1 484.5 862.5 234719                         146                         123                         115
 
+#definire le colonne del dataset
+band<-c(1,2,3) #sono le 3 bande dell'immagine
+sth79_1<-c(35,22,48) #valori di riflettanza nel punto 1 in sth79. Ogni colonna è un pixel. Punto 1: Spirit Lake (lago a Nord del cratere)
+sth81_1<-c(190,172,152) #valori di riflettanza nel punto 1 in sth81
+sth79_2<-c(146,21,29) #Punto 2: Foresta
+sth81_2<-c(218,216,201)
+sth79_3<-c(209,123,122) #Punto 3:Vegetazione più rada
+sth81_3<-c(146,123,115)
 
+#creo il dataset
+spectral<-data.frame(band,sth79_1,sth81_1,sth79_2,sth81_2,sth79_3,sth81_3)
+spectral
+#    band sth79_1 sth81_1 sth79_2 sth81_2 sth79_3 sth81_3
+# 1    1      35     190     146     218     209     146
+# 2    2      22     172      21     216     123     123
+# 3    3      48     152      29     201     122     115
 
-
-
-
-
-
-
-
-
-
-
-
-#vari indici di vegetazione per sth79
-vi79<-spectralIndices(sth79,green=3,red=2,nir=1)
+#visualizzo le firme spettrali
+ggplot(spectral,aes(x=band))+ 
+  geom_line(aes(y=sth79_1),col='red',linetype='solid') +  #linetype inserisce dei punti al posto della linea continua
+  geom_line(aes(y=sth81_1),col='red',linetype='dashed') +
+  geom_line(aes(y=sth79_2),col='blue',linetype='solid') + 
+  geom_line(aes(y=sth81_2),col='blue',linetype='dashed') +
+  geom_line(aes(y=sth79_3),col='orange',linetype='solid') + 
+  geom_line(aes(y=sth81_3),col='orange',linetype='dashed') +
+  labs(x='band',y='reflectance')
 
 
 
