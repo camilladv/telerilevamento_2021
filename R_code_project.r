@@ -120,17 +120,17 @@ prop81  #percentuali di pixel per ciascuna classe
 # [5,] 4.553332e-06 0.2709369   --> 27% vegetazione
 
 #costruisco il datebase per osservare la differenza di copertura del suolo a seguito dell'eruzione
-cover<-c('Roccia','Acqua','Foresta','Suolo nudo','Vegetazione')  #colonna cover contenente le 5 classi di copertura del suolo. c unisce dei valori vettoriali
+cover<-c('Suolo nudo','Acqua','Foresta','Roccia','Vegetazione')  #colonna cover contenente le 5 classi di copertura del suolo. c unisce dei valori vettoriali
 perc_79<-c(18.49,9.69,33.00,4.22,34.58) #colonna contenente i valori percentuali di sth79c che ricavo da prop79
 perc_81<-c(14.94,17.02,32.81,8.11,27.09)  #colonna contenente i valori percentuali di sth81c che ricavo da prop81
 #creo il dataframe con il comando data.frame
 cover_perc<-data.frame(cover,perc_79,perc_81) #indico le colonne che deve inserire nel dataframe
 cover_perc
 #         cover perc_79 perc_81
-# 1      Roccia   18.49   14.94
+# 1  Suolo nudo   18.49   14.94
 # 2       Acqua    9.69   17.02
 # 3     Foresta   33.00   32.81
-# 4  Suolo nudo    4.22    8.11
+# 4      Roccia    4.22    8.11
 # 5 Vegetazione   34.58   27.09
 
 #Firme spettrali delle zone che hanno subito una maggiore differrenziazione 
@@ -166,7 +166,7 @@ sth79_1<-c(35,22,48) #valori di riflettanza nel punto 1 in sth79. Punto 1: Spiri
 sth81_1<-c(190,172,152) #valori di riflettanza nel punto 1 in sth81
 sth79_2<-c(146,21,29) #Punto 2: Foresta
 sth81_2<-c(218,216,201)
-sth79_3<-c(209,123,122) #Punto 3:Vegetazione più rada
+sth79_3<-c(209,123,122) #Punto 3:Suolo nudo
 sth81_3<-c(146,123,115)
 
 #creo il dataset
